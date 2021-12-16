@@ -1,0 +1,37 @@
+{% extends 'core\siteBase.html' %}
+{% load static %}
+{% block title %}-Student Profile {% endblock title %}
+{% block content %}
+<div class="col-md-9">
+  <div class="card card-solid">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12 col-sm-6">
+          <h3 class="d-inline-block d-sm-none">{{pindetails.heading}}}</h3>
+          <div class="col-12">
+            <img src={{pindetails.pin.url}} class="product-image" alt="Product Image">
+          </div>
+        </div>
+        <div class="col-12 col-sm-6">
+          <h3 class="my-3">{{pindetails.heading}}</h3>
+          <br>
+          <p>{{pindetails.pincategory}}</p>
+          <br>
+          <p>{{pindetails.details}}</p>
+        </div>
+        {% if pindetails.owner == StudentData.id %}
+        <div class="col-12 col-sm-6">
+          <a class="btn sbtn smbt btn-block" href="{% url 'editpin' pk=pindetails.id %}">Edit</a>
+
+          <form action="{% url 'deletepin' pk=pindetails.id %}" method="POST" class='d-inline'>
+            {% csrf_token %}
+            <input type="submit" value='Delete' class='btn btn-danger btn-sm smbt'>
+          </form>
+        </div>
+        {% endif %}
+        <!-- /.card-body -->
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
